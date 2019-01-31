@@ -26,7 +26,7 @@ from bpy.types import Operator, Panel
 from ..functions import *
 
 
-class SKELETON_PT_interface(Panel):
+class SKELETON_PT_interface_object(Panel):
     bl_space_type  = "VIEW_3D"
     bl_region_type = "TOOLS"
     bl_label       = "Skeleton Interface"
@@ -54,4 +54,16 @@ class SKELETON_PT_interface(Panel):
         col = layout.column(align=True)
         col.label(text="Your interface here!")
         col.operator("skeleton.operator_skeleton")
-        col.operator("skeleton.cookie_cutter_skeleton")
+
+
+class SKELETON_PT_interface_edit(Panel):
+    bl_space_type  = "VIEW_3D"
+    bl_region_type = "TOOLS"
+    bl_label       = "Skeleton Interface"
+    bl_idname      = "VIEW3D_PT_tools_addon_skeleton2"
+    bl_context     = "mesh_edit"
+    bl_category    = "Addon Skeleton"
+
+    def draw(self, context):
+        layout = self.layout
+        layout.operator("skeleton.cc_operator_skeleton")

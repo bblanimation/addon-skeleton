@@ -22,7 +22,8 @@ from ..operators import *
 
 classes = [
     SKELETON_PT_preferences,
-    SKELETON_PT_interface,
+    SKELETON_PT_interface_object,
+    SKELETON_PT_interface_edit,
     SKELETON_OT_operator_skeleton,
-    SKELETON_OT_cookie_cutter_skeleton,
+    SKELETON_OT_cc_operator_skeleton,
 ]

@@ -38,7 +38,7 @@ from ..functions import *
 
 
 @PersistentOptions()
-class ExtruCutOptions:
+class OperatorOptions:
     defaults = {
         "by": "count",
         "count": 5,
@@ -47,10 +47,10 @@ class ExtruCutOptions:
     }
 
 
-class SKELETON_OT_cookie_cutter_skeleton(CookieCutter):
-    """ Cookie cutter skeleton """
-    bl_idname      = "skeleton.cookie_cutter_skeleton"
-    bl_label       = "Cookie Cutter Skeleton"
+class SKELETON_OT_cc_operator_skeleton(CookieCutter):
+    """ CC operator skeleton """
+    bl_idname      = "skeleton.cc_operator_skeleton"
+    bl_label       = "CC Operator Skeleton"
     bl_description = ""
     bl_space_type  = "VIEW_3D"
     bl_region_type = "TOOLS"
@@ -72,6 +72,7 @@ class SKELETON_OT_cookie_cutter_skeleton(CookieCutter):
 
     def start(self):
         """ ExtruCut tool is starting """
+        scn = bpy.context.scene
 
         bpy.ops.ed.undo_push()  # push current state to undo
 
@@ -79,7 +80,7 @@ class SKELETON_OT_cookie_cutter_skeleton(CookieCutter):
         self.cursor_modal_set("CROSSHAIR")
         self.manipulator_hide()
 
-        self.segment_opts = ExtruCutOptions()
+        self.segment_opts = OperatorOptions()
         self.segments = 1
         self.is_dirty = True
         self.extrude_verts = []

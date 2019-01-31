@@ -16,4 +16,4 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from .operator_skeleton import *
-from .cookie_cutter_skeleton import *
+from .cc_operator_skeleton import *
