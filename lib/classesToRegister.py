@@ -22,8 +22,8 @@ from ..operators import *
 
 classes = [
     SKELETON_PT_preferences,
-    SKELETON_PT_interface_object,
-    SKELETON_PT_interface_edit,
+    VIEW3D_PT_tools_interface_1,
+    VIEW3D_PT_tools_interface_2,
     SKELETON_OT_operator_skeleton,
     SKELETON_OT_cc_operator_skeleton,
 ]

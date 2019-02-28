@@ -32,7 +32,7 @@ bl_info = {
 
 # Blender imports
 import bpy
-from bpy.types import Scene
+from bpy.types import Scene, Object
 
 # Addon imports
 from .operators import *

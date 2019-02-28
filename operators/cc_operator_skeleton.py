@@ -29,12 +29,12 @@ from mathutils.geometry import intersect_line_line
 from bmesh.types import BMVert, BMEdge, BMFace
 
 # Addon imports
+from ..functions import *
 from ..addon_common.cookiecutter.cookiecutter import CookieCutter
 from ..addon_common.common import ui
 from ..addon_common.common.bmesh_utils import BMeshSelectState, BMeshHideState
 from ..addon_common.common.maths import Point, Point2D, XForm
 from ..addon_common.common.decorators import PersistentOptions
-from ..functions import *
 
 
 @PersistentOptions()
