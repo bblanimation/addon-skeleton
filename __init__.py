@@ -21,7 +21,7 @@ bl_info = {
     "version"     : (1, 0, 0),
     "blender"     : (2, 79, 0),
     "description" : "",
-    "location"    : "View3D > Tools > Addon Skeleton",
+    "location"    : "",  # "View3D > Tools > Addon Skeleton",
     "warning"     : "",  # used for warning icon and text in addons panel
     "wiki_url"    : "",
     "tracker_url" : "",

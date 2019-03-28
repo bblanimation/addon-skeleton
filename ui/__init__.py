@@ -26,11 +26,11 @@ from bpy.types import Panel
 from ..functions import *
 
 
-class VIEW3D_PT_tools_interface_1(Panel):
+class VIEW3D_PT_skeleton_interface_1(Panel):
     bl_space_type  = "VIEW_3D"
     bl_region_type = "UI" if b280() else "TOOLS"
-    bl_label       = "Skeleton Interface"
-    bl_idname      = "VIEW3D_PT_tools_interface_1"
+    bl_label       = "Skeleton Interface 1"
+    bl_idname      = "VIEW3D_PT_skeleton_interface_1"
     bl_context     = "objectmode"
     bl_category    = "Addon Skeleton"
 
@@ -56,11 +56,11 @@ class VIEW3D_PT_tools_interface_1(Panel):
         col.operator("skeleton.operator_skeleton")
 
 
-class VIEW3D_PT_tools_interface_2(Panel):
+class VIEW3D_PT_skeleton_interface_2(Panel):
     bl_space_type  = "VIEW_3D"
     bl_region_type = "UI" if b280() else "TOOLS"
-    bl_label       = "Skeleton Interface"
-    bl_idname      = "VIEW3D_PT_tools_interface_2"
+    bl_label       = "Skeleton Interface 2"
+    bl_idname      = "VIEW3D_PT_skeleton_interface_2"
     bl_context     = "mesh_edit"
     bl_category    = "Addon Skeleton"
 
