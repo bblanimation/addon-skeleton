@@ -38,11 +38,13 @@ from bpy.types import Scene, Object
 from .operators import *
 from .ui import *
 from .lib.classesToRegister import classes
+from .functions.common import *
 from . import addon_updater_ops
 
 def register():
     # register classes
     for cls in classes:
+        make_annotations(cls)
         bpy.utils.register_class(cls)
 
     # # register app handlers

@@ -28,7 +28,7 @@ from ..functions import *
 
 class VIEW3D_PT_tools_interface_1(Panel):
     bl_space_type  = "VIEW_3D"
-    bl_region_type = "TOOLS"
+    bl_region_type = "UI" if b280() else "TOOLS"
     bl_label       = "Skeleton Interface"
     bl_idname      = "VIEW3D_PT_tools_interface_1"
     bl_context     = "objectmode"
@@ -58,7 +58,7 @@ class VIEW3D_PT_tools_interface_1(Panel):
 
 class VIEW3D_PT_tools_interface_2(Panel):
     bl_space_type  = "VIEW_3D"
-    bl_region_type = "TOOLS"
+    bl_region_type = "UI" if b280() else "TOOLS"
     bl_label       = "Skeleton Interface"
     bl_idname      = "VIEW3D_PT_tools_interface_2"
     bl_context     = "mesh_edit"
