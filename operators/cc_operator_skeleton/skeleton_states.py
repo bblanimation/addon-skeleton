@@ -16,15 +16,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # System imports
-import time
+# NONE!
 
 # Blender imports
-import bpy
+# NONE!
 
 # Addon imports
 from ...addon_common.cookiecutter.cookiecutter import CookieCutter
 from ...addon_common.common import ui
-from ...addon_common.common.decorators import PersistentOptions
 
 
 class Skeleton_States():
