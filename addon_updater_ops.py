@@ -52,7 +52,7 @@ except Exception as e:
 # Must declare this before classes are loaded
 # otherwise the bl_idname's will not match and have errors.
 # Must be all lowercase and no spaces
-updater.addon = "addon_skeleton"  # TODO: update this value
+updater.addon = "addon_skeleton"
 
 
 # -----------------------------------------------------------------------------
@@ -1271,12 +1271,12 @@ def register(bl_info):
 	updater.user = "bblanimation"
 
 	# choose your own repository, must match git name
-	updater.repo = "addon_skeleton"  # TODO: update this value
+	updater.repo = "addon_skeleton"
 
 	#updater.addon = # define at top of module, MUST be done first
 
 	# Website for manual addon download, optional but recommended to set
-	updater.website = "https://github.com/bblanimation/addon_skeleton"  # TODO: update this value
+	updater.website = "https://github.com/bblanimation/addon_skeleton"
 
 	# Addon subfolder path
 	# "sample/path/to/addon"
