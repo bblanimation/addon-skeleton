@@ -46,10 +46,10 @@ class VIEW3D_PT_skeleton_interface_1(Panel):
             split = layout.split(align=True, percentage=0.9)
             col = split.column(align=True)
             row = col.row(align=True)
-            row.operator("scene.report_error", text="Report Error", icon="URL").addon_name = "Addon Skeleton"
+            row.operator("scene.report_error", text="Report Error", icon="URL")
             col = split.column(align=True)
             row = col.row(align=True)
-            row.operator("scene.close_report_error", text="", icon="PANEL_CLOSE").addon_name = "Addon Skeleton"
+            row.operator("scene.close_report_error", text="", icon="PANEL_CLOSE")
 
         col = layout.column(align=True)
         col.label(text="Your interface here!")

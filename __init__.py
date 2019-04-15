@@ -61,5 +61,5 @@ def unregister():
     # bpy.app.handlers.load_post.remove(handle_something)
 
     # unregister classes
-    for cls in classes:
+    for cls in reversed(classes):
         bpy.utils.unregister_class(cls)

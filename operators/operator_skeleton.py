@@ -20,12 +20,13 @@
 
 # Blender imports
 import bpy
+from bpy.types import Operator
 
 # Addon imports
 from ..functions import *
 
 
-class SKELETON_OT_operator_skeleton(bpy.types.Operator):
+class SKELETON_OT_operator_skeleton(Operator):
     """ Operator skeleton """
     bl_idname = "skeleton.operator_skeleton"
     bl_label = "Operator Skeleton"
