@@ -45,30 +45,30 @@ class Skeleton_UI_Init():
         def mode_setter(m): self.fsm_change(m)
 
         # UPPER LEFT WINDOW, mode setters and commit/cancel buttons
-        self.tools_panel = self.wm.create_window('Skeleton Tools', {'pos':7, 'movable':True, 'bgcolor':(0.50, 0.50, 0.50, 0.90)})
+        self.tools_panel = self.wm.create_window("Skeleton Tools", {"pos":7, "movable":True, "bgcolor":(0.50, 0.50, 0.50, 0.90)})
         precut_container = self.tools_panel.add(ui.UI_Container()) # TODO: make this rounded
-        self.mode_frame = precut_container.add(ui.UI_Frame('Skeleton Mode'))
+        self.mode_frame = precut_container.add(ui.UI_Frame("Skeleton Mode"))
         self.mode_options = self.mode_frame.add(ui.UI_Options(mode_getter, mode_setter, separation=0))
-        self.mode_options.add_option('Some State', value='some_state')
+        self.mode_options.add_option("Some State", value="some_state")
 
         segmentation_container = self.tools_panel.add(ui.UI_Container())
-        self.finish_frame = segmentation_container.add(ui.UI_Frame('Finish Tools'))
-        self.commit_button = self.finish_frame.add(ui.UI_Button('Commit', self.done, align=0))
-        self.cancel_button = self.finish_frame.add(ui.UI_Button('Cancel', lambda:self.done(cancel=True), align=0))
+        self.finish_frame = segmentation_container.add(ui.UI_Frame("Finish Tools"))
+        self.commit_button = self.finish_frame.add(ui.UI_Button("Commit", self.done, align=0))
+        self.cancel_button = self.finish_frame.add(ui.UI_Button("Cancel", lambda:self.done(cancel=True), align=0))
 
         #####################################
         ### Collapsible Help and Options   ##
         #####################################
-        self.info_panel = self.wm.create_window('Skeleton Help',
-                                                {'pos':9,
-                                                 'movable':True,
-                                                 'bgcolor':(0.50, 0.50, 0.50, 0.90)})
+        self.info_panel = self.wm.create_window("Skeleton Help",
+                                                {"pos":9,
+                                                 "movable":True,
+                                                 "bgcolor":(0.50, 0.50, 0.50, 0.90)})
 
-        collapse_container = self.info_panel.add(ui.UI_Collapsible('Instructions     ', collapsed=False))
-        self.inst_paragraphs = [collapse_container.add(ui.UI_Markdown('', min_size=(100,10), max_size=(250, 20))) for i in range(2)]
+        collapse_container = self.info_panel.add(ui.UI_Collapsible("Instructions     ", collapsed=False))
+        self.inst_paragraphs = [collapse_container.add(ui.UI_Markdown("", min_size=(100,10), max_size=(250, 20))) for i in range(2)]
         self.set_ui_text()
         #for i in self.inst_paragraphs: i.visible = False
-        self.options_frame = self.info_panel.add(ui.UI_Frame('Tool Options'))
+        self.options_frame = self.info_panel.add(ui.UI_Frame("Tool Options"))
         self.options_frame.add(ui.UI_Number("Size", get_blobsize, set_blobsize, fn_get_print_value=get_blobsize_print, fn_set_print_value=set_blobsize))
         self.wax_action_options = self.options_frame.add(ui.UI_Options(get_action, set_action, label="Action: ", vertical=True))
         self.wax_action_options.add_option("do something")
@@ -76,11 +76,11 @@ class Skeleton_UI_Init():
         self.wax_action_options.add_option("none")
 
     def set_ui_text(self):
-        ''' sets the viewports text '''
+        """ sets the viewports text """
         self.reset_ui_text()
-        for i,val in enumerate(['do something', 'do something else']):
+        for i,val in enumerate(["do something", "do something else"]):
             self.inst_paragraphs[i].set_markdown("- " + self.instructions[val])
 
     def reset_ui_text(self):
         for inst_p in self.inst_paragraphs:
-            inst_p.set_markdown('')
+            inst_p.set_markdown("")

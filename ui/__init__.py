@@ -42,7 +42,7 @@ class VIEW3D_PT_skeleton_interface_1(Panel):
         layout = self.layout
         scn = context.scene
 
-        if bpy.data.texts.find('Addon Skeleton log') >= 0:
+        if bpy.data.texts.find("Addon Skeleton log") >= 0:
             split = layout.split(align=True, percentage=0.9)
             col = split.column(align=True)
             row = col.row(align=True)

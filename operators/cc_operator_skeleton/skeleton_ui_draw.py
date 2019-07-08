@@ -110,7 +110,7 @@ def draw2d_polyline(points, color, thickness, stipple=False):
 
 
 class Skeleton_UI_Draw():
-    @CookieCutter.Draw('post3d')
+    @CookieCutter.Draw("post3d")
     def draw_postview(self):
 
         self.draw_3D_stuff()
@@ -118,19 +118,19 @@ class Skeleton_UI_Draw():
         # skip the rest of the drawing if user is navigating or doing stuff with ui
         if self._nav: return
 
-        #if self.net_ui_context.hovered_near[0] in {'NON_MAN_ED', 'NON_MAN_VERT'}:
+        #if self.net_ui_context.hovered_near[0] in {"NON_MAN_ED", "NON_MAN_VERT"}:
             # draw non-manifold circle
         #    loc = self.net_ui_context.hovered_near[1][1]
         #    self.draw_circle(loc, 10, .7, green_trans, clear)
 
         #INSERT POINT HINT
-        #if self.net_ui_context.hovered_near[0] in {'EDGE'}:
+        #if self.net_ui_context.hovered_near[0] in {"EDGE"}:
             # draw insertion circle
-        #    loc = self.net_ui_context.hovered_mesh['world loc']
+        #    loc = self.net_ui_context.hovered_mesh["world loc"]
         #    self.draw_circle(loc, 10, .7, green_trans, clear)
 
 
-        #if self.net_ui_context.hovered_near[0] in {'POINT'}:
+        #if self.net_ui_context.hovered_near[0] in {"POINT"}:
             # draw selection circle
         #    loc = self.net_ui_context.hovered_near[1].world_loc
         #    self.draw_circle(loc, 12, .7, green_trans, clear)
@@ -141,15 +141,15 @@ class Skeleton_UI_Draw():
         #    self.draw_circle(loc, 24, .7, green_trans, clear)
 
         # draw region paint brush
-        if self._state in ['paint wait', 'painting']:
+        if self._state in ["paint wait", "painting"]:
             if self.brush:
                 self.brush.draw_postview(self.context, self.actions.mouse)
 
-    @CookieCutter.Draw('post2d')
+    @CookieCutter.Draw("post2d")
     def draw_postpixel(self):
         self.draw_2D_stuff()
         # if self.sketcher.has_locs:
-        if self._state == 'sketching':
+        if self._state == "sketching":
             draw2d_polyline(self.sketcher.get_locs(), (0.0, 1.0, 0.0, 0.4), 2)
 
 
@@ -160,7 +160,7 @@ class Skeleton_UI_Draw():
         ctrl_pressed = self.actions.ctrl
         loc3d_reg2D = view3d_utils.location_3d_to_region_2d
 
-        if self._state == 'spline':
+        if self._state == "spline":
             ## Selected Point
             if self.net_ui_context.selected:
                 if isinstance(self.net_ui_context.selected, InputPoint):
@@ -176,7 +176,7 @@ class Skeleton_UI_Draw():
                 common_drawing.draw_3d_points(context,[mid], 10, red)
 
 
-        if self._state == 'spline' and self.net_ui_context.snap_element and self.net_ui_context.selected:
+        if self._state == "spline" and self.net_ui_context.snap_element and self.net_ui_context.selected:
             psnap = self.net_ui_context.snap_element
             psel = self.net_ui_context.selected
 
@@ -187,12 +187,12 @@ class Skeleton_UI_Draw():
                 draw2d_polyline(pts_2d, preview_line_clr, preview_line_wdth)
 
 
-        if self._state == 'spline' and self.net_ui_context.hovered_near[0] == 'EDGE':
+        if self._state == "spline" and self.net_ui_context.hovered_near[0] == "EDGE":
             seg = self.net_ui_context.hovered_near[1]
 
             p0 = seg.n0.world_loc
             p1 = seg.n1.world_loc
-            pn = self.net_ui_context.hovered_mesh['world loc']
+            pn = self.net_ui_context.hovered_mesh["world loc"]
 
             pts_2d = [loc3d_reg2D(context.region, context.space_data.region_3d, pt_3d) for pt_3d in [p0, pn, p1]]
             draw2d_polyline(pts_2d, preview_line_clr, preview_line_wdth)
@@ -206,16 +206,16 @@ class Skeleton_UI_Draw():
         # Draw hints
 
         # # Hovered Non-manifold Edge or Vert
-        # if self.net_ui_context.hovered_near[0] in {'NON_MAN_ED', 'NON_MAN_VERT'}:
+        # if self.net_ui_context.hovered_near[0] in {"NON_MAN_ED", "NON_MAN_VERT"}:
         #     ed, pt = self.net_ui_context.hovered_near[1]
         #     common_drawing.draw_3d_points(context,[pt], 6, green)
 
         # # Hovered Point
-        # if self.net_ui_context.hovered_near[0] == 'POINT':
+        # if self.net_ui_context.hovered_near[0] == "POINT":
         #     common_drawing.draw_3d_points(context,[self.net_ui_context.hovered_near[1].world_loc], 8, color=(0,1,0,1))
 
         # # Insertion Lines (for adding in a point to edge)
-        # elif self.net_ui_context.hovered_near[0] == 'EDGE':
+        # elif self.net_ui_context.hovered_near[0] == "EDGE":
         #     seg = self.net_ui_context.hovered_near[1]
         #     if isinstance(seg, SplineSegment):
         #         a = loc3d_reg2D(context.region, context.space_data.region_3d, seg.n0.world_loc)
@@ -236,7 +236,7 @@ class Skeleton_UI_Draw():
         # # Insertion Line (for general adding of points)
         # elif self.net_ui_context.closest_ep and not ctrl_pressed:
         #     ep_screen_loc = loc3d_reg2D(context.region, context.space_data.region_3d, self.net_ui_context.closest_ep.world_loc)
-        #     if self.net_ui_context.hovered_near[0] in {'NON_MAN_ED', 'NON_MAN_VERT'}:
+        #     if self.net_ui_context.hovered_near[0] in {"NON_MAN_ED", "NON_MAN_VERT"}:
         #         point_loc = loc3d_reg2D(context.region, context.space_data.region_3d, self.net_ui_context.hovered_near[1][1])
         #     else: point_loc = mouse_loc
         #     draw2d_polyline([ep_screen_loc, point_loc], preview_line_clr, preview_line_wdth)
@@ -247,7 +247,7 @@ class Skeleton_UI_Draw():
         region,r3d = context.region,context.space_data.region_3d
         view_dir = r3d.view_rotation * Vector((0,0,-1))
         view_loc = r3d.view_location - view_dir * r3d.view_distance
-        view_ortho = (r3d.view_perspective == 'ORTHO')
+        view_ortho = (r3d.view_perspective == "ORTHO")
         if view_ortho: view_loc -= view_dir * 1000.0
 
         bgl.glEnable(bgl.GL_POINT_SMOOTH)
@@ -256,7 +256,7 @@ class Skeleton_UI_Draw():
         bgl.glLineWidth(1)
         bgl.glDepthRange(0.0, 1.0)
 
-        if self._state != 'segmentation':
+        if self._state != "segmentation":
             #CurveNetwork, BezierSegments
             for seg in self.spline_net.segments:
                 if len(seg.draw_tessellation) == 0: continue
@@ -299,11 +299,11 @@ class Skeleton_UI_Draw():
                 draw3d_polyline([seg.ip0.world_loc, seg.ip1.world_loc],  red, 4, view_loc, view_ortho)
 
 
-        if self._state == 'segmentation':
+        if self._state == "segmentation":
             #draw the hovered patch
             #TODO, segmentation only happens AFTER CUtting
             #So it would be MUCH easier to just draw the damn edges of the patch
-            if self.net_ui_context.hovered_near[0] == 'PATCH':
+            if self.net_ui_context.hovered_near[0] == "PATCH":
                 p = self.net_ui_context.hovered_near[1]
                 if p != self.network_cutter.active_patch:
                     for spline_seg in p.spline_net_segments:
@@ -315,9 +315,9 @@ class Skeleton_UI_Draw():
                     for iseg in spline_seg.input_segments:
                             draw3d_polyline([iseg.ip0.world_loc] + iseg.path + [iseg.ip1.world_loc],  orange2, 4, view_loc, view_ortho)
 
-        if self._state == 'spline':
+        if self._state == "spline":
             draw3d_points(self.input_net.point_world_locs, blue, 2, view_loc, view_ortho)
-        elif self._state != 'segmentation':
+        elif self._state != "segmentation":
             draw3d_points(self.input_net.point_world_locs, blue, 6, view_loc, view_ortho)
 
         #draw the seed/face patch points
@@ -349,12 +349,12 @@ class Skeleton_UI_Draw():
 
         circleShader.enable()
         self.drawing.point_size(2.0 * radius)
-        circleShader['uMVPMatrix'] = self.drawing.get_view_matrix_buffer()
-        circleShader['uInOut']     = inner_ratio
+        circleShader["uMVPMatrix"] = self.drawing.get_view_matrix_buffer()
+        circleShader["uInOut"]     = inner_ratio
 
         bgl.glBegin(bgl.GL_POINTS)
-        circleShader['vOutColor'] = color_outside
-        circleShader['vInColor']  = color_inside
+        circleShader["vOutColor"] = color_outside
+        circleShader["vInColor"]  = color_inside
         bgl.glVertex3f(*world_loc)
         bgl.glEnd()
 
