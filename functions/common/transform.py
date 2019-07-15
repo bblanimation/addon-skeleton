@@ -27,7 +27,7 @@ from bpy.types import Object
 # Module imports
 from .blender import *
 from .maths import mathutils_mult
-from .python_utils import confirmIter
+from .python_utils import confirm_iter
 
 
 def apply_transform(obj:Object, location:bool=True, rotation:bool=True, scale:bool=True):
@@ -56,7 +56,7 @@ def parent_clear(objs, apply_transform:bool=True):
     """ efficiently clear parent """
     # select(objs, active=True, only=True)
     # bpy.ops.object.parent_clear(type="CLEAR_KEEP_TRANSFORM")
-    objs = confirmIter(objs)
+    objs = confirm_iter(objs)
     if apply_transform:
         for obj in objs:
             last_mx = obj.matrix_world.copy()
@@ -67,7 +67,7 @@ def parent_clear(objs, apply_transform:bool=True):
             obj.parent = None
 
 
-def getBoundsBF(obj:Object):
+def get_bounds(obj:Object):
     """ brute force method for obtaining object bounding box """
     # initialize min and max
     min = Vector((math.inf, math.inf, math.inf))
@@ -110,7 +110,7 @@ def bounds(obj:Object, local:bool=False, use_adaptive_domain:bool=True):
 
     """
 
-    local_coords = getBoundsBF(obj) if is_smoke(obj) and is_adaptive(obj) and not use_adaptive_domain else obj.bound_box[:]
+    local_coords = get_bounds(obj) if is_smoke(obj) and is_adaptive(obj) and not use_adaptive_domain else obj.bound_box[:]
     om = obj.matrix_world
 
     if not local:
@@ -120,19 +120,19 @@ def bounds(obj:Object, local:bool=False, use_adaptive_domain:bool=True):
         coords = [p[:] for p in local_coords]
 
     rotated = zip(*coords[::-1])
-    getMax = lambda i: max([co[i] for co in coords])
-    getMin = lambda i: min([co[i] for co in coords])
+    get_max = lambda i: max([co[i] for co in coords])
+    get_min = lambda i: min([co[i] for co in coords])
 
     info = lambda: None
-    info.max = Vector((getMax(0), getMax(1), getMax(2)))
-    info.min = Vector((getMin(0), getMin(1), getMin(2)))
+    info.max = Vector((get_max(0), get_max(1), get_max(2)))
+    info.min = Vector((get_min(0), get_min(1), get_min(2)))
     info.mid = (info.min + info.max) / 2
     info.dist = info.max - info.min
 
     return info
 
 
-def setObjOrigin(obj:Object, loc:Vector):
+def set_obj_origin(obj:Object, loc:Vector):
     """ set object origin """
     l, r, s = obj.matrix_world.decompose()
     r_mat = r.to_matrix().to_4x4()
@@ -145,7 +145,7 @@ def setObjOrigin(obj:Object, loc:Vector):
     obj.matrix_world.translation = loc
 
 
-def transformToWorld(vec:Vector, mat:Matrix, junk_bme:bmesh=None):
+def transform_to_world(vec:Vector, mat:Matrix, junk_bme:bmesh=None):
     """ transfrom vector to world space from 'mat' matrix local space """
     # decompose matrix
     loc = mat.to_translation()
@@ -166,7 +166,7 @@ def transformToWorld(vec:Vector, mat:Matrix, junk_bme:bmesh=None):
     return vec
 
 
-def transformToLocal(vec:Vector, mat:Matrix, junk_bme:bmesh=None):
+def transform_to_local(vec:Vector, mat:Matrix, junk_bme:bmesh=None):
     """ transfrom vector to local space of 'mat' matrix """
     # decompose matrix
     loc = mat.to_translation()

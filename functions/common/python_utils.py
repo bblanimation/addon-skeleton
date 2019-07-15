@@ -99,12 +99,12 @@ def most_common(L:list):
     return max(groups, key=_auxfun)[0]
 
 
-def checkEqual(lst:list):
+def check_equal(lst:list):
     """ verifies that all items in list are the same """
     return lst.count(lst[0]) == len(lst)
 
 
-def isUnique(lst:list):
+def is_unique(lst:list):
     """ verifies that all items in list are unique """
     return np.unique(lst).size == len(lst)
 
@@ -153,19 +153,19 @@ def str_to_bool(s:str):
 
 def deepcopy(object):
     """ efficient way to deepcopy marshal loadable object """
-    marshalObj = marshal.dumps(object)
-    newObj = marshal.loads(marshalObj)
-    return newObj
+    marshal_obj = marshal.dumps(object)
+    new_obj = marshal.loads(marshal_obj)
+    return new_obj
 
 
-def confirmList(object):
+def confirm_list(object):
     """ if single item passed, convert to list """
     if type(object) not in (list, tuple):
         object = [object]
     return object
 
 
-def confirmIter(object):
+def confirm_iter(object):
     """ if single item passed, convert to list """
     try:
         iter(object)

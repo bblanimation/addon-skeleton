@@ -24,7 +24,7 @@ import platform
 # NONE!
 
 
-def makeBashSafe(s:str, replace_with:str=None, unsafe_chars:str="!#$&'()*,;<=>?[]^`{|}~: "):
+def make_bash_safe(s:str, replace_with:str=None, unsafe_chars:str="!#$&'()*,;<=>?[]^`{|}~: "):
     """ make filenames and paths bash safe """
     # protects against file names that would cause problems with bash calls
     if s.startswith(".") or s.startswith("-"):

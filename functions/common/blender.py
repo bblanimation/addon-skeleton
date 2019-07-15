@@ -31,7 +31,7 @@ except ImportError:
     ViewLayer = None
 
 # Module imports
-from .python_utils import confirmIter, confirmList
+from .python_utils import confirm_iter, confirm_list
 from .wrappers import blender_version_wrapper
 from .reporting import b280
 
@@ -78,7 +78,7 @@ def get_addon_directory():
 
 def delete(objs, remove_meshes:bool=False):
     """ efficient deletion of objects """
-    objs = confirmIter(objs)
+    objs = confirm_iter(objs)
     for obj in objs:
         if obj is None:
             continue
@@ -101,58 +101,58 @@ def duplicate(obj:Object, linked:bool=False, link_to_scene:bool=False):
 
 
 @blender_version_wrapper("<=","2.79")
-def setActiveObj(obj:Object, scene:Scene=None):
+def set_active_obj(obj:Object, scene:Scene=None):
     scene = scene or bpy.context.scene
     scene.objects.active = obj
 @blender_version_wrapper(">=","2.80")
-def setActiveObj(obj:Object, view_layer:ViewLayer=None):
+def set_active_obj(obj:Object, view_layer:ViewLayer=None):
     view_layer = view_layer or bpy.context.view_layer
     view_layer.objects.active = obj
 
 
 @blender_version_wrapper("<=","2.79")
-def select(objList, active:bool=False, only:bool=False):
+def select(obj_list, active:bool=False, only:bool=False):
     """ selects objs in list (deselects the rest if 'only') """
-    # confirm objList is a list of objects
-    objList = confirmIter(objList)
+    # confirm obj_list is a list of objects
+    obj_list = confirm_iter(obj_list)
     # deselect all if selection is exclusive
     if only:
-        deselectAll()
+        deselect_all()
     # select objects in list
-    for obj in objList:
+    for obj in obj_list:
         if obj is not None and not obj.select:
             obj.select = True
     # set active object
     if active:
-        setActiveObj(objList[0])
+        set_active_obj(obj_list[0])
 @blender_version_wrapper(">=","2.80")
-def select(objList, active:bool=False, only:bool=False):
+def select(obj_list, active:bool=False, only:bool=False):
     """ selects objs in list (deselects the rest if 'only') """
-    # confirm objList is a list of objects
-    objList = confirmIter(objList)
+    # confirm obj_list is a list of objects
+    obj_list = confirm_iter(obj_list)
     # deselect all if selection is exclusive
     if only:
-        deselectAll()
+        deselect_all()
     # select objects in list
-    for obj in objList:
+    for obj in obj_list:
         if obj is not None and not obj.select_get():
             obj.select_set(True)
     # set active object
     if active:
-        setActiveObj(objList[0])
+        set_active_obj(obj_list[0])
 
 
-def selectAll():
+def select_all():
     """ selects all objs in scene """
     select(bpy.context.scene.objects)
 
 
-def selectGeom(geom, only:bool=False):
+def select_geom(geom, only:bool=False):
     """ selects verts/edges/faces in list and deselects the rest """
     # confirm vertList is a list of vertices
-    geom = confirmList(geom)
+    geom = confirm_list(geom)
     # deselect all if selection is exclusive
-    if only: deselectAll()
+    if only: deselect_all()
     # select vertices in list
     for v in geom:
         if v is not None and not v.select:
@@ -160,33 +160,33 @@ def selectGeom(geom, only:bool=False):
 
 
 @blender_version_wrapper("<=","2.79")
-def deselect(objList):
+def deselect(obj_list):
     """ deselects objs in list """
-    # confirm objList is a list of objects
-    objList = confirmList(objList)
+    # confirm obj_list is a list of objects
+    obj_list = confirm_list(obj_list)
     # select/deselect objects in list
-    for obj in objList:
+    for obj in obj_list:
         if obj is not None and obj.select:
             obj.select = False
 @blender_version_wrapper(">=","2.80")
-def deselect(objList):
+def deselect(obj_list):
     """ deselects objs in list """
-    # confirm objList is a list of objects
-    objList = confirmList(objList)
+    # confirm obj_list is a list of objects
+    obj_list = confirm_list(obj_list)
     # select/deselect objects in list
-    for obj in objList:
+    for obj in obj_list:
         if obj is not None and obj.select_get():
             obj.select_set(False)
 
 
 @blender_version_wrapper("<=","2.79")
-def deselectAll():
+def deselect_all():
     """ deselects all objs in scene """
     for obj in bpy.context.selected_objects:
         if obj.select:
             obj.select = False
 @blender_version_wrapper(">=","2.80")
-def deselectAll():
+def deselect_all():
     """ deselects all objs in scene """
     selected_objects = bpy.context.selected_objects if hasattr(bpy.context, "selected_objects") else [obj for obj in bpy.context.view_layer.objects if obj.select_get()]
     deselect(selected_objects)
@@ -221,16 +221,16 @@ def unhide(obj:Object, viewport:bool=True, render:bool=True):
 
 
 @blender_version_wrapper(">=","2.80")
-def isObjVisibleInViewport(obj:Object):
+def is_obj_visible_in_viewport(obj:Object):
     if obj is None:
         return False
-    objVisible = not obj.hide_viewport
-    if objVisible:
+    obj_visible = not obj.hide_viewport
+    if obj_visible:
         for cn in obj.users_collection:
             if cn.hide_viewport:
-                objVisible = False
+                obj_visible = False
                 break
-    return objVisible
+    return obj_visible
 
 
 @blender_version_wrapper("<=","2.79")
@@ -253,7 +253,7 @@ def unlink_object(o:Object):
 
 
 @blender_version_wrapper("<=","2.79")
-def safeLink(obj:Object, protect:bool=False, collections=None):
+def safe_link(obj:Object, protect:bool=False, collections=None):
     # link object to scene
     try:
         link_object(obj)
@@ -265,7 +265,7 @@ def safeLink(obj:Object, protect:bool=False, collections=None):
     if hasattr(obj, "protected"):
         obj.protected = protect
 @blender_version_wrapper(">=","2.80")
-def safeLink(obj:Object, protect:bool=False, collections=None):
+def safe_link(obj:Object, protect:bool=False, collections=None):
     # link object to target collections (scene collection by default)
     collections = collections or [bpy.context.scene.collection]
     for coll in collections:
@@ -280,7 +280,7 @@ def safeLink(obj:Object, protect:bool=False, collections=None):
         obj.protected = protect
 
 
-def safeUnlink(obj:Object, protect:bool=True):
+def safe_unlink(obj:Object, protect:bool=True):
     # unlink object from scene
     try:
         unlink_object(obj)
@@ -293,7 +293,7 @@ def safeUnlink(obj:Object, protect:bool=True):
         obj.protected = protect
 
 
-def copyAnimationData(source:Object, target:Object):
+def copy_animation_data(source:Object, target:Object):
     """ copy animation data from one object to another """
     if source.animation_data is None:
         return
@@ -310,12 +310,12 @@ def copyAnimationData(source:Object, target:Object):
         setattr(ad2, prop, getattr(ad, prop))
 
 
-def insertKeyframes(objs, keyframeType:str, frame:int, if_needed:bool=False):
+def insert_keyframes(objs, keyframeType:str, frame:int, if_needed:bool=False):
     """ insert key frames for given objects to given frames """
-    objs = confirmIter(objs)
+    objs = confirm_iter(objs)
     options = set(["INSERTKEY_NEEDED"] if if_needed else [])
     for obj in objs:
-        inserted = obj.keyframe_insert(data_path=keyframeType, frame=frame, options=options)
+        inserted = obj.keyframe_insert(data_path=keyframe_type, frame=frame, options=options)
 
 
 @blender_version_wrapper("<=", "2.79")
@@ -367,45 +367,45 @@ def is_adaptive(ob:Object):
 #################### VIEWPORT ####################
 
 
-def tag_redraw_areas(areaTypes:iter=["ALL"]):
+def tag_redraw_areas(area_types:iter=["ALL"]):
     """ run tag_redraw for given area types """
-    areaTypes = confirmList(areaTypes)
+    area_types = confirm_list(area_types)
     screens = [bpy.context.screen] if bpy.context.screen else bpy.data.screens
     for screen in screens:
         for area in screen.areas:
-            for areaType in areaTypes:
+            for areaType in area_types:
                 if areaType == "ALL" or area.type == areaType:
                     area.tag_redraw()
 
 
 @blender_version_wrapper("<=", "2.79")
-def disableRelationshipLines():
+def disable_relationship_lines():
     """ disable relationship lines in VIEW_3D """
     for area in bpy.context.screen.areas:
         if area.type == "VIEW_3D":
             area.spaces[0].show_relationship_lines = False
 @blender_version_wrapper(">=", "2.80")
-def disableRelationshipLines():
+def disable_relationship_lines():
     """ disable relationship lines in VIEW_3D """
     for area in bpy.context.screen.areas:
         if area.type == "VIEW_3D":
             area.spaces[0].overlay.show_relationship_lines = False
 
 
-def setActiveScn(scn:Scene):
+def set_active_scene(scn:Scene):
     """ set active scene in all screens """
     for screen in bpy.data.screens:
         screen.scene = scn
 
 
-def changeContext(context, areaType:str):
+def change_context(context, areaType:str):
     """ Changes current context and returns previous area type """
-    lastAreaType = context.area.type
+    last_area_type = context.area.type
     context.area.type = areaType
-    return lastAreaType
+    return last_area_type
 
 
-def AssembleOverrideContextForView3dOps():
+def assemble_override_context_for_view_3d_ops():
     """
     Iterates through the blender GUI's areas & regions to find the View3D space
     NOTE: context override can only be used with bpy.ops that were called from a window/screen with a view3d space
@@ -424,7 +424,7 @@ def AssembleOverrideContextForView3dOps():
 
 
 @blender_version_wrapper("<=","2.79")
-def setLayers(layers:iter, scn:Scene=None):
+def set_layers(layers:iter, scn:Scene=None):
     """ set active layers of scn w/o 'dag ZERO' error """
     assert len(layers) == 20
     scn = scn or bpy.context.scene
@@ -435,17 +435,17 @@ def setLayers(layers:iter, scn:Scene=None):
 
 
 @blender_version_wrapper("<=","2.79")
-def openLayer(layerNum:int, scn:Scene=None):
+def open_layer(layer_num:int, scn:Scene=None):
     scn = scn or bpy.context.scene
-    layerList = [i == layerNum - 1 for i in range(20)]
-    scn.layers = layerList
-    return layerList
+    layer_list = [i == layer_num - 1 for i in range(20)]
+    scn.layers = layer_list
+    return layer_list
 
 
 #################### MESHES ####################
 
 
-def drawBMesh(bm:bmesh, name:str="drawnBMesh"):
+def draw_bmesh(bm:bmesh, name:str="drawn_bmesh"):
     """ create mesh and object from bmesh """
     # note: neither are linked to the scene, yet, so they won't show in the 3d view
     m = bpy.data.meshes.new(name + "_mesh")
@@ -457,16 +457,16 @@ def drawBMesh(bm:bmesh, name:str="drawnBMesh"):
     return obj
 
 
-def smoothBMFaces(faces:iter):
+def smooth_bm_faces(faces:iter):
     """ set given bmesh faces to smooth """
-    faces = confirmIter(faces)
+    faces = confirm_iter(faces)
     for f in faces:
         f.smooth = True
 
 
-def smoothMeshFaces(faces:iter):
+def smooth_mesh_faces(faces:iter):
     """ set given Mesh faces to smooth """
-    faces = confirmIter(faces)
+    faces = confirm_iter(faces)
     for f in faces:
         f.use_smooth = True
 
@@ -491,7 +491,7 @@ def right_align(layout_item):
     layout_item.use_property_decorate = False
 
 
-def getItemByID(collection:bpy.types.CollectionProperty, id:int):
+def get_item_by_id(collection, id:int):
     """ get UIlist item from collection with given id """
     success = False
     for item in collection:
@@ -523,6 +523,15 @@ def set_active_scene(scene:Scene):
 @blender_version_wrapper(">=","2.80")
 def set_active_scene(scene:Scene):
     bpy.context.window.scene = scene
+
+
+def set_cursor(cursor):
+    # DEFAULT, NONE, WAIT, CROSSHAIR, MOVE_X, MOVE_Y, KNIFE, TEXT,
+    # PAINT_BRUSH, HAND, SCROLL_X, SCROLL_Y, SCROLL_XY, EYEDROPPER
+    for wm in bpy.data.window_managers:
+        for win in wm.windows:
+            win.cursor_modal_set(cursor)
+
 
 @blender_version_wrapper("<=","2.79")
 def get_cursor_location():
@@ -556,3 +565,12 @@ def make_annotations(cls):
             annotations[k] = v
             delattr(cls, k)
     return cls
+
+
+def append_from(blendfile_path, typ, filename):
+    directory = os.path.join(blendfile_path, typ)
+    filepath = os.path.join(directory, filename)
+    bpy.ops.wm.append(
+        filepath=filepath,
+        filename=filename,
+        directory=directory)
