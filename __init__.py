@@ -50,6 +50,11 @@ def register():
     # # register app handlers
     # bpy.app.handlers.load_post.append(handle_something)
 
+    # # register timers
+    # if b280():
+    #     if not bpy.app.timers.is_registered(sample_timer):
+    #         bpy.app.timers.register(sample_timer)
+
     # addon updater code and configurations
     addon_updater_ops.register(bl_info)
 
@@ -59,6 +64,11 @@ def unregister():
 
     # # unregister app handlers
     # bpy.app.handlers.load_post.remove(handle_something)
+
+    # # unregister timers
+    # if b280():
+    #     if bpy.app.timers.is_registered(sample_timer):
+    #         bpy.app.timers.unregister(sample_timer)
 
     # unregister classes
     for cls in reversed(classes):
