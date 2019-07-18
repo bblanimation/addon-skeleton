@@ -15,7 +15,5 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from .classes_to_register import *
-from .keymaps import *
-from .preferences import *
-from .report_error import *
+def add_keymaps(km):
+    km.keymap_items.new("skeleton.operator_skeleton", "Q", "PRESS", ctrl=True, shift=True, alt=True)
