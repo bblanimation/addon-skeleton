@@ -26,9 +26,12 @@ from bpy.types import Panel
 from ..functions import *
 
 
-class VIEW3D_PT_skeleton_interface_1(Panel):
+class View3DPanel:
     bl_space_type  = "VIEW_3D"
     bl_region_type = "UI" if b280() else "TOOLS"
+
+
+class VIEW3D_PT_skeleton_interface_1(Panel, View3DPanel):
     bl_label       = "Skeleton Interface 1"
     bl_idname      = "VIEW3D_PT_skeleton_interface_1"
     bl_context     = "objectmode"

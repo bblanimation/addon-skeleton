@@ -17,6 +17,7 @@
 
 from .report_error import *
 from .preferences import *
+from .property_groups import *
 from ..ui import *
 from ..operators import *
 

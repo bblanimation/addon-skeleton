@@ -19,13 +19,13 @@ bl_info = {
     "name"        : "Addon Skeleton",
     "author"      : "Christopher Gearhart <chris@bblanimation.com>",
     "version"     : (1, 0, 0),
-    "blender"     : (2, 79, 0),
+    "blender"     : (2, 80, 0),
     "description" : "",
-    "location"    : "",  # "View3D > Tools > Addon Skeleton",
+    "location"    : "View3D > UI > Addon Skeleton",
     "warning"     : "",  # used for warning icon and text in addons panel
     "wiki_url"    : "",
     "tracker_url" : "",
-    "category"    : "Object"}
+    "category"    : "Development"}
 
 # System imports
 # NONE!
@@ -33,6 +33,7 @@ bl_info = {
 # Blender imports
 import bpy
 from bpy.types import Scene, Object
+from bpy.props import *
 
 # Addon imports
 from .operators import *
@@ -50,6 +51,10 @@ def register():
     for cls in classes_to_register.classes:
         make_annotations(cls)
         bpy.utils.register_class(cls)
+
+    # # add custom props
+    # Scene.skeleton_prop = BoolProperty(
+    #     default=False)
 
     # # register app handlers
     # bpy.app.handlers.load_post.append(handle_something)
@@ -86,6 +91,9 @@ def unregister():
     # if b280():
     #     if bpy.app.timers.is_registered(sample_timer):
     #         bpy.app.timers.unregister(sample_timer)
+
+    # delete custom props
+    # del Scene.skeleton_prop
 
     # unregister classes
     for cls in reversed(classes_to_register.classes):

@@ -220,6 +220,10 @@ def unhide(obj:Object, viewport:bool=True, render:bool=True):
         obj.hide_render = False
 
 
+@blender_version_wrapper("<=","2.79")
+def is_obj_visible_in_viewport(obj:Object):
+    scn = bpy.context.scene
+    return any([obj.layers[i] and scn.layers[i] for i in range(20)])
 @blender_version_wrapper(">=","2.80")
 def is_obj_visible_in_viewport(obj:Object):
     if obj is None:
@@ -405,14 +409,14 @@ def change_context(context, areaType:str):
     return last_area_type
 
 
-def assemble_override_context_for_view_3d_ops():
+def assemble_override_context(area_type="VIEW_3D"):
     """
     Iterates through the blender GUI's areas & regions to find the View3D space
     NOTE: context override can only be used with bpy.ops that were called from a window/screen with a view3d space
     """
     win      = bpy.context.window
     scr      = win.screen
-    areas3d  = [area for area in scr.areas if area.type == "VIEW_3D"]
+    areas3d  = [area for area in scr.areas if area.type == area_type]
     region   = [region for region in areas3d[0].regions if region.type == "WINDOW"]
     override = {"window": win,
                 "screen": scr,
@@ -565,6 +569,14 @@ def make_annotations(cls):
             annotations[k] = v
             delattr(cls, k)
     return cls
+
+
+@blender_version_wrapper("<=","2.79")
+def get_annotations(cls):
+    return list(dict(cls).keys())
+@blender_version_wrapper(">=","2.80")
+def get_annotations(cls):
+    return cls.__annotations__
 
 
 def append_from(blendfile_path, attr, filename):
