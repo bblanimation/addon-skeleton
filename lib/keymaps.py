@@ -1,4 +1,4 @@
-# Copyright (C) 2020 Christopher Gearhart
+# Copyright (C) 2019 Christopher Gearhart
 # chris@bblanimation.com
 # http://bblanimation.com/
 #
@@ -15,26 +15,5 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# System imports
-import math
-
-# Blender imports
-import bpy
-from mathutils import Matrix
-
-
-def get_saturation_matrix(s:float):
-    """ returns saturation matrix from saturation value """
-    sr = (1 - s) * 0.3086  # or 0.2125
-    sg = (1 - s) * 0.6094  # or 0.7154
-    sb = (1 - s) * 0.0820  # or 0.0721
-    return Matrix(((sr + s, sr, sr), (sg, sg + s, sg), (sb, sb, sb + s)))
-
-
-def gamma_correct(rgba:list, val:float=2.0167):
-    """ gamma correct color by value """
-    r, g, b, a = rgba
-    r = math.pow(r, val)
-    g = math.pow(g, val)
-    b = math.pow(b, val)
-    return [r, g, b, a]
+def add_keymaps(km):
+    km.keymap_items.new("skeleton.operator_skeleton", "Q", "PRESS", ctrl=True, shift=True, alt=True)

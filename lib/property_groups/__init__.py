@@ -15,15 +15,4 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from .reportError import *
-from .preferences import *
-from ..ui import *
-from ..operators import *
-
-classes = [
-    SkeletonAddonPreferences,
-    VIEW3D_PT_skeleton_interface_1,
-    VIEW3D_PT_skeleton_interface_2,
-    SKELETON_OT_operator_skeleton,
-    SKELETON_OT_cc_operator_skeleton,
-]
+# from .property_group import *
