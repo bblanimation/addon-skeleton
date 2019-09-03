@@ -21,8 +21,8 @@
 # Blender imports
 # NONE!
 
-# Module imports
-from ...addon_common.common import ui
+# Addon imports
+from ...subtrees.addon_common.common import ui
 
 
 class Skeleton_UI_Init():

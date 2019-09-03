@@ -24,8 +24,8 @@ from mathutils import Vector, Matrix, Color
 # Module imports
 from .wax_drop_datastructure import InputPoint, CurveNode, SplineSegment
 from ...functions import common_drawing
-from ...addon_common.cookiecutter.cookiecutter import CookieCutter
-from ...addon_common.common.shaders import circleShader
+from ...subtrees.addon_common.cookiecutter.cookiecutter import CookieCutter
+from ...subtrees.addon_common.common.shaders import circleShader
 
 
 # some useful colors
