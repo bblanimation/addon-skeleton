@@ -35,10 +35,12 @@ import bpy
 from bpy.types import Scene, Object
 from bpy.props import *
 
-# Addon imports
+# Module imports
 from .operators import *
 from .ui import *
 from .lib import keymaps, preferences, classes_to_register
+from .lib.app_handlers import *
+from .lib.property_groups import *
 from .functions.common import *
 from . import addon_updater_ops
 
@@ -53,8 +55,8 @@ def register():
         bpy.utils.register_class(cls)
 
     # # add custom props
-    # Scene.skeleton_prop = BoolProperty(
-    #     default=False)
+    # Scene.skeleton_prop = BoolProperty(default=False)
+    # Scene.skeleton_prop_group = PointerProperty(type=PropertyGroup)
 
     # # register app handlers
     # bpy.app.handlers.load_post.append(handle_something)
@@ -64,12 +66,12 @@ def register():
     #     if not bpy.app.timers.is_registered(sample_timer):
     #         bpy.app.timers.register(sample_timer)
 
-    # handle the keymaps
-    wm = bpy.context.window_manager
-    if wm.keyconfigs.addon: # check this to avoid errors in background case
-        km = wm.keyconfigs.addon.keymaps.new(name="Object Mode", space_type="EMPTY")
-        keymaps.add_keymaps(km)
-        addon_keymaps.append(km)
+    # # handle the keymaps
+    # wm = bpy.context.window_manager
+    # if wm.keyconfigs.addon: # check this to avoid errors in background case
+    #     km = wm.keyconfigs.addon.keymaps.new(name="Object Mode", space_type="EMPTY")
+    #     keymaps.add_keymaps(km)
+    #     addon_keymaps.append(km)
 
     # addon updater code and configurations
     addon_updater_ops.register(bl_info)
@@ -78,11 +80,11 @@ def unregister():
     # addon updater unregister
     addon_updater_ops.unregister()
 
-    # handle the keymaps
-    wm = bpy.context.window_manager
-    for km in addon_keymaps:
-        wm.keyconfigs.addon.keymaps.remove(km)
-    addon_keymaps.clear()
+    # # handle the keymaps
+    # wm = bpy.context.window_manager
+    # for km in addon_keymaps:
+    #     wm.keyconfigs.addon.keymaps.remove(km)
+    # addon_keymaps.clear()
 
     # # unregister app handlers
     # bpy.app.handlers.load_post.remove(handle_something)
@@ -93,6 +95,7 @@ def unregister():
     #         bpy.app.timers.unregister(sample_timer)
 
     # delete custom props
+    # del Scene.skeleton_prop_group
     # del Scene.skeleton_prop
 
     # unregister classes

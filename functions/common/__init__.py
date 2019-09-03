@@ -17,6 +17,7 @@
 
 from .blender import *
 from .colors import *
+from .images import *
 from .maths import *
 from .paths import *
 from .python_utils import *

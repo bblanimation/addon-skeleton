@@ -21,7 +21,7 @@
 # Blender imports
 # NONE!
 
-# Addon imports
+# Module imports
 from ...addon_common.common import ui
 
 

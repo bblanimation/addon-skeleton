@@ -16,4 +16,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 def add_keymaps(km):
-    km.keymap_items.new("skeleton.operator_skeleton", "Q", "PRESS", ctrl=True, shift=True, alt=True)
+    # km.keymap_items.new("skeleton.operator_skeleton", "Q", "PRESS", ctrl=True, shift=True, alt=True)
+    pass

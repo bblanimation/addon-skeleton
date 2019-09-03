@@ -21,7 +21,7 @@
 # Blender imports
 # NONE!
 
-# Addon imports
+# Module imports
 from .common import *
 
 def addon_skeleton_handle_exception():

@@ -17,7 +17,6 @@
 
 # System imports
 import os
-import numpy as np
 from math import *
 
 # Blender imports
@@ -56,21 +55,6 @@ def get_addon_preferences():
             return None
         get_addon_preferences.prefs = addons[foldername].preferences
     return get_addon_preferences.prefs
-
-
-def get_addon_directory():
-    """ get root directory of current addon """
-    addons = get_preferences().addons
-    folderpath = os.path.dirname(os.path.abspath(__file__))
-    while folderpath:
-        folderpath, foldername = os.path.split(folderpath)
-        if foldername in {"common", "functions", "addons"}:
-            continue
-        if foldername in addons:
-            break
-    else:
-        raise NameError("Did not find addon directory")
-    return os.path.join(folderpath, foldername)
 
 
 #################### OBJECTS ####################
@@ -190,6 +174,14 @@ def deselect_all():
     """ deselects all objs in scene """
     selected_objects = bpy.context.selected_objects if hasattr(bpy.context, "selected_objects") else [obj for obj in bpy.context.view_layer.objects if obj.select_get()]
     deselect(selected_objects)
+
+
+@blender_version_wrapper("<=","2.79")
+def is_selected(obj):
+    return obj.select
+@blender_version_wrapper(">=","2.80")
+def is_selected(obj):
+    return obj.select_get()
 
 
 @blender_version_wrapper("<=","2.79")
@@ -476,6 +468,14 @@ def smooth_mesh_faces(faces:iter):
 
 
 #################### OTHER ####################
+
+
+@blender_version_wrapper("<=","2.79")
+def active_render_engine():
+    return bpy.context.scene.render.engine
+@blender_version_wrapper(">=","2.80")
+def active_render_engine():
+    return bpy.context.engine
 
 
 @blender_version_wrapper("<=","2.79")

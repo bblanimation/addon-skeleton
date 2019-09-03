@@ -21,7 +21,7 @@
 # Blender imports
 import bpy
 
-# Addon imports
+# Module imports
 from ...functions import *
 from ...addon_common.cookiecutter.cookiecutter import CookieCutter
 from ...addon_common.common.decorators import PersistentOptions

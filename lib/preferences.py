@@ -23,7 +23,7 @@ import bpy
 from bpy.types import AddonPreferences
 from bpy.props import *
 
-# Addon imports
+# Module imports
 # NONE!
 
 # updater import

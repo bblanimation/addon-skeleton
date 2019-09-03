@@ -22,7 +22,7 @@
 import bpy
 from bpy.types import Panel
 
-# Addon imports
+# Module imports
 from ..functions import *
 
 
@@ -39,20 +39,21 @@ class VIEW3D_PT_skeleton_interface_1(Panel, View3DPanel):
 
     @classmethod
     def poll(self, context):
-        return True
+        return context.object is not None
+
+    def draw_header(self, context):
+        self.layout.prop(context.object, "hide_render", text="")
 
     def draw(self, context):
         layout = self.layout
         scn = context.scene
 
         if bpy.data.texts.find("Addon Skeleton log") >= 0:
-            split = layout.split(align=True, percentage=0.9)
+            split = layout_split(layout, factor=0.9)
             col = split.column(align=True)
-            row = col.row(align=True)
-            row.operator("scene.report_error", text="Report Error", icon="URL")
+            col.operator("addon_skeleton.report_error", text="Report Error", icon="URL")
             col = split.column(align=True)
-            row = col.row(align=True)
-            row.operator("scene.close_report_error", text="", icon="PANEL_CLOSE")
+            col.operator("addon_skeleton.close_report_error", text="", icon="PANEL_CLOSE")
 
         col = layout.column(align=True)
         col.label(text="Your interface here!")

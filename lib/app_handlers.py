@@ -22,7 +22,7 @@ import math
 import bpy
 from bpy.app.handlers import persistent
 
-# Addon imports
+# Module imports
 from ..functions import *
 
 # @persistent

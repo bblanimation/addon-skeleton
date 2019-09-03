@@ -22,7 +22,7 @@
 import bpy
 from bpy.types import Operator
 
-# Addon imports
+# Module imports
 from ..functions import *
 
 
@@ -49,7 +49,7 @@ class SKELETON_OT_operator_skeleton(Operator):
         try:
             # create timer for modal
             wm = context.window_manager
-            self._timer = wm.event_timer_add(0.1, context.window)
+            self._timer = wm.event_timer_add(0.1, window=context.window)
             wm.modal_handler_add(self)
             return{"RUNNING_MODAL"}
         except:

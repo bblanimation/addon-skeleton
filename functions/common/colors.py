@@ -20,7 +20,7 @@ import math
 
 # Blender imports
 import bpy
-from mathutils import Matrix
+from mathutils import Matrix, Vector
 
 
 def get_saturation_matrix(s:float):
@@ -38,3 +38,8 @@ def gamma_correct(rgba:list, val:float=2.0167):
     g = math.pow(g, val)
     b = math.pow(b, val)
     return [r, g, b, a]
+
+
+def get_average(rgba0:Vector, rgba1:Vector, weight:float):
+    """ returns weighted average of two rgba values """
+    return (rgba1 * weight + rgba0) / (weight + 1)
