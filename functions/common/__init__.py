@@ -16,9 +16,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from .blender import *
+from .bmesh_generators import *
+from .bmesh_utils import *
+# try:
+#     from .color_effects import *
+#     from .color_effects_cuda import *
+#     from .data_types import *
+# except ModuleNotFoundError:
+#     print("'numba' python module not installed")
 from .colors import *
 from .images import *
+from .materials import *
 from .maths import *
+from .nodes import *
 from .paths import *
 from .python_utils import *
 from .reporting import *

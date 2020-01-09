@@ -24,7 +24,7 @@ import platform
 # NONE!
 
 # Module imports
-from .blender import get_preferences
+# NONE!
 
 
 def make_bash_safe(s:str, replace_with:str=None, unsafe_chars:str="!#$&'()*,;<=>?[]^`{|}~: "):
@@ -60,18 +60,3 @@ def splitpath(path:str):
                 folders.append(path)
             break
     return folders[::-1]
-
-
-def get_addon_directory():
-    """ get root directory of current addon """
-    addons = get_preferences().addons
-    folderpath = os.path.dirname(os.path.abspath(__file__))
-    while folderpath:
-        folderpath, foldername = os.path.split(folderpath)
-        if foldername in {"common", "functions", "addons"}:
-            continue
-        if foldername in addons:
-            break
-    else:
-        raise NameError("Did not find addon directory")
-    return os.path.join(folderpath, foldername)
